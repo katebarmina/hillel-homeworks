@@ -8,6 +8,20 @@ public class StringArrayImp implements StringArray {
     @Override
     public boolean add(int index, String value) {
         checkIndex(index);
+        if (size < array.length) {
+            for (int i = size; i >= index; i--) {
+                array[i] = array[i - 1];
+            }
+        } else {
+            String[] newArray = new String[(int) (array.length * 1.5)];
+            for (int i = 0; i < index; i++) {
+                newArray[i] = array[i];
+            }
+            for (int i = 1; i < array.length - index; i++) {
+                newArray[index + i] = array[index + i - 1];
+            }
+            array = newArray;
+        }
         array[index] = value;
         size++;
         return true;
@@ -37,7 +51,7 @@ public class StringArrayImp implements StringArray {
                     array[i] = array[i + 1];
                 }
             }
-            array[array.length - 1] = null;
+            array[size] = null;
             size--;
             return true;
     }
@@ -66,7 +80,7 @@ public class StringArrayImp implements StringArray {
     }
 
     private void checkIndex(int index) {
-        if (index < 0 || index >= array.length) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index must be less than " + array.length + " and bigger then 0.");
         }
     }
