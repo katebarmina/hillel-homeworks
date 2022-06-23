@@ -1,6 +1,9 @@
-import java.util.Collection;
 
-public class CustomCollectionImp implements CustomCollection {
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.function.Consumer;
+
+public class CustomCollectionImp implements CustomCollection, Iterable {
     private Node head;
     private Node tail;
     private int size;
@@ -145,6 +148,11 @@ public class CustomCollectionImp implements CustomCollection {
         }
     }
 
+    @Override
+    public Iterator iterator() {
+        return new ListIterator();
+    }
+
     private class Node {
         private String value;
         private Node next;
@@ -186,6 +194,50 @@ public class CustomCollectionImp implements CustomCollection {
         @Override
         public String toString() {
             return value;
+        }
+    }
+
+    private class ListIterator implements Iterator {
+
+        private Node current;
+
+        public ListIterator() {
+            this.current = head;
+        }
+
+
+        @Override
+
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public Object next() {
+            Node data = current;
+            current = current.next;
+            return data;
+        }
+
+        @Override
+        public void remove() {
+            if (current == null) {
+                head = tail = null;
+            } else if (current.previous == head) {
+                current.previous = null;
+                head = head.next;
+            } else {
+                current.previous.next = current.next;
+                current.next.previous = current.previous;
+            }
+            size--;
+        }
+
+        @Override
+        public void forEachRemaining(Consumer action) {
+            while (hasNext()) {
+                action.accept(next());
+            }
         }
     }
 }
