@@ -1,7 +1,9 @@
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.function.Consumer;
 
-public class StringCollectionImp implements StringCollection {
+public class StringCollectionImp implements StringCollection, Iterable {
 
     private String[] array = new String[10];
     private int size;
@@ -47,7 +49,7 @@ public class StringCollectionImp implements StringCollection {
     @Override
     public boolean delete(String o) {
         boolean isIndexFound = false;
-        for (int i = 0; i < size - 1; i++) {
+        for (int i = 0; i < size; i++) {
             if (array[i].equals(o)) {
                 isIndexFound = true;
             }
@@ -108,6 +110,44 @@ public class StringCollectionImp implements StringCollection {
     private void checkIndex(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index must be less than " + size + " and bigger then 0.");
+        }
+    }
+
+    @Override
+    public Iterator iterator() {
+        return new MyIterator();
+    }
+
+    class MyIterator implements Iterator {
+
+        private int currentIndex;
+
+        public MyIterator() {
+            this.currentIndex = currentIndex;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex != size;
+        }
+
+        @Override
+        public Object next() {
+            return array[currentIndex++];
+        }
+
+        @Override
+        public void remove() {
+            int delIndex = currentIndex - 1;
+            delete(array[delIndex]);
+            currentIndex--;
+        }
+
+        @Override
+        public void forEachRemaining(Consumer action) {
+            while (hasNext()) {
+                action.accept(next());
+            }
         }
     }
 }

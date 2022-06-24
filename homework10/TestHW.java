@@ -8,18 +8,19 @@ public class TestHW {
         System.out.println(arrayList);
 
 
-        CustomCollectionImp myCollection = new CustomCollectionImp();
-        myCollection.add("2");
-        myCollection.add("7");
-        myCollection.add("23");
-        myCollection.add("98");
-        myCollection.add("223");
-        Iterator it = myCollection.iterator();
-        it.forEachRemaining(System.out::println);
-        Iterator it2 = myCollection.iterator();
-        while (it2.hasNext()) {
-            System.out.println(it2.next());
+        StringCollectionImp myArrayList = new StringCollectionImp();
+        myArrayList.add("23");
+        myArrayList.add("3");
+        myArrayList.add("0");
+        myArrayList.add("12");
+        myArrayList.delete("23");
+        Iterator iterator = myArrayList.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
         }
+        System.out.println("-------------------");
+        Iterator iterator2 = myArrayList.iterator();
+        iterator2.forEachRemaining(System.out::println);
 
         QCalculator qCalculator = new QCalculator();
         qCalculator.calcQuadraticEquation(1, -2, -3);
