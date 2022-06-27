@@ -28,7 +28,7 @@ public class StringCollectionImp implements StringCollection, Iterable {
     public boolean add(int index, String o) {
         checkIndex(index);
         if (size < array.length) {
-            for (int i = size; i >= index; i--) {
+            for (int i = size; i > index; i--) {
                 array[i] = array[i - 1];
             }
         } else {
@@ -49,7 +49,7 @@ public class StringCollectionImp implements StringCollection, Iterable {
     @Override
     public boolean delete(String o) {
         boolean isIndexFound = false;
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size - 1; i++) {
             if (array[i].equals(o)) {
                 isIndexFound = true;
             }
@@ -71,7 +71,7 @@ public class StringCollectionImp implements StringCollection, Iterable {
 
     @Override
     public boolean contain(String o) {
-        for (int i = 0; i < size - 1; i++) {
+        for (int i = 0; i < size; i++) {
             if (array[i].equals(o)) {
                 return true;
             }
@@ -82,10 +82,8 @@ public class StringCollectionImp implements StringCollection, Iterable {
     @Override
     public boolean equals(Collection str) {
         boolean isPresent = false;
-        for (Object ignored : str) {
-            for (String s : array) {
-                isPresent = str.contains(s);
-            }
+        for (int i = 0;i<str.size();i++) {
+                isPresent = str.contains(array[i]);
         }
         return isPresent;
     }
