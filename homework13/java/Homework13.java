@@ -1,7 +1,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Homework12 {
+public class Homework13 {
 
     double findMeanValue(Collection<Integer> collection){
         return collection.stream().mapToInt(i -> i).average().getAsDouble();
