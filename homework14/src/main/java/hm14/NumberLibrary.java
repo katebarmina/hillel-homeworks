@@ -3,6 +3,19 @@ package hm14;
 public class NumberLibrary {
     private final String[][] matrix = new String[5][6];
 
+    public void printZero() {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                if (((i == 0 || i == 4) && (j != 0 && j != 5)) || (i > 0 && i < 4) && ((j == 0 || j == 5))) {
+                    matrix[i][j] = "@";
+                } else {
+                    matrix[i][j] = " ";
+                }
+            }
+        }
+        printMatrix(matrix);
+    }
+
     public void printOne() {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {

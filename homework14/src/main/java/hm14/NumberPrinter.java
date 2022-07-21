@@ -5,18 +5,21 @@ public class NumberPrinter {
 
     private boolean isNumber(String str) {
         try {
-            int num = Integer.parseInt(str);
+            Integer.parseInt(str);
         } catch (NumberFormatException e) {
             return false;
         }
         return true;
     }
 
-    public void printSequenceOfNumbers(String args) {
+    public void printSequenceOfNumbers(String args){
         String[] sequenceOfNum = args.split("");
         for (String s : sequenceOfNum) {
             if (isNumber(s)) {
                 switch (s) {
+                    case "0":
+                        numberLibrary.printZero();
+                        break;
                     case "1":
                         numberLibrary.printOne();
                         break;
@@ -48,5 +51,4 @@ public class NumberPrinter {
             }
         }
     }
-
 }
