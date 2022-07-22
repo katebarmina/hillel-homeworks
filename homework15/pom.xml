@@ -38,7 +38,7 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <mainClass>hm14.TestHM14</mainClass>
+                                <mainClass>homework15.RunGame</mainClass>
                             </manifest>
                         </archive>
                     </configuration>
