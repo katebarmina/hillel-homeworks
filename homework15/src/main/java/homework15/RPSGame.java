@@ -1,10 +1,12 @@
 package homework15;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class RPSGame {
 
-    public void startGame() {
+
+    public void startGame() throws IOException {
         GameService gameService = new GameService();
         System.out.println("What is your name?");
         Scanner scanner = new Scanner(System.in);
@@ -18,8 +20,7 @@ public class RPSGame {
             gameService.chooseWinner(player.getHandSign(), computersSign, player);
             playedGames++;
         }
-        gameService.printResults(player);
-
-
+        System.out.println(gameService.printResults(player));
+        gameService.saveGame(player);
     }
 }
