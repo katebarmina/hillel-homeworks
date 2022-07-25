@@ -63,6 +63,8 @@ public class GameService {
         System.out.println("Total games played :" + player.getPlayedGames());
         System.out.println("Lost games: " + player.getLostGames());
         System.out.println("Won games: " + player.getWonGames());
+        int numOfDraws = player.getPlayedGames() - (player.getWonGames()+ player.getLostGames());
+        System.out.println("Draw :"+numOfDraws);
     }
 
 }
