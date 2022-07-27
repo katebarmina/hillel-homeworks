@@ -1,0 +1,19 @@
+Player :PAPER
+Computer: ROCK
+Result: Player won
+Player :ROCK
+Computer: PAPER
+Result: Computer won
+
+Total games played :2
+Lost games: 1
+Won games: 1
+Draw :0
+Player :SCISSORS
+Computer: PAPER
+Result: Player won
+
+Total games played :1
+Lost games: 0
+Won games: 1
+Draw :0
