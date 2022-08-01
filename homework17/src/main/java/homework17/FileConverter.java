@@ -76,9 +76,13 @@ public class FileConverter {
         for (String jsonString : listOfValidatedFiles) {
           Map<String, Object>[] map = gson.fromJson(jsonString, Map[].class);
           yaml.load(jsonString);
+          File dir = new File(System.getProperty("user.dir")+"\\converted");
+          if (!dir.exists()){
+            dir.mkdirs();
+          }
           PrintWriter writer =
               new PrintWriter(
-                  "C:\\Users\\Kate\\IdeaProjects\\homework1\\homework17\\converted\\" + newName);
+                  System.getProperty("user.dir")+"\\converted\\" + newName);
           yaml.dump(map, writer);
           end = System.currentTimeMillis();
           System.out.println("File was successfully converted from JSON to YAML");
@@ -96,7 +100,7 @@ public class FileConverter {
                 + " -> "
                 + Files.size(
                     Path.of(
-                        "C:\\Users\\Kate\\IdeaProjects\\homework1\\homework17\\converted\\"
+                            System.getProperty("user.dir")+"\\converted\\"
                             + newName)));
       }
     } catch (IOException exception) {
@@ -117,9 +121,13 @@ public class FileConverter {
           ObjectMapper yamlReader = new ObjectMapper(new YAMLFactory());
           Object obj = yamlReader.readValue(yamlString, Object.class);
           ObjectMapper jsonWriter = new ObjectMapper();
+          File dir = new File(System.getProperty("user.dir")+"\\converted");
+          if (!dir.exists()){
+            dir.mkdirs();
+          }
           jsonWriter.writeValue(
               new File(
-                  "C:\\Users\\Kate\\IdeaProjects\\homework1\\homework17\\converted\\" + newName),
+                      System.getProperty("user.dir")+"\\converted\\" + newName),
               obj);
           end = System.currentTimeMillis();
           System.out.println("File was successfully converted from YAML to JSON");
@@ -137,7 +145,7 @@ public class FileConverter {
                 + " -> "
                 + Files.size(
                     Path.of(
-                        "C:\\Users\\Kate\\IdeaProjects\\homework1\\homework17\\converted\\"
+                            System.getProperty("user.dir")+"\\converted\\"
                             + newName)));
       }
     } catch (IOException ex) {
@@ -155,7 +163,7 @@ public class FileConverter {
   }
 
   private void saveResults() throws IOException {
-    Path path = Paths.get("C:\\Users\\Kate\\IdeaProjects\\homework1\\homework17");
+    Path path = Paths.get(System.getProperty("user.dir"));
     String fileName = "result.log";
     File file = new File(path.toString(), fileName);
     FileOutputStream fileOutputStream = null;
