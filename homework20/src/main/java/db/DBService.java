@@ -12,7 +12,7 @@ public class DBService {
     private final String DELETE_BY_ID_SQL = "DELETE FROM students WHERE student_id = ?;";
     private final String SELECT_SQL = "SELECT * FROM students;";
     private final String SELECT_BY_NAME_SQL = "SELECT * FROM students WHERE full_name = ?;";
-    private final String SELECT_BY_ID_SQL = "SELECT * FROM students WHERE student_id IN (?,?,?)";
+    private final String SELECT_BY_ID_SQL = "SELECT * FROM students WHERE student_id = ?";
 
 
     public void insert(Student student) throws DataSourceException {
@@ -80,30 +80,23 @@ public class DBService {
         return students;
     }
 
-    public List<Student> getByIds(List<Integer> ids) throws DataSourceException {
-        List<Student> students = new ArrayList<>();
-        int paramIndex = 0;
+    public Student getById(Integer id) throws DataSourceException {
+        Student student = new Student();
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hillel", "root", "12345");
              PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID_SQL)) {
-            for (Integer id : ids) {
-                paramIndex++;
-                statement.setInt(paramIndex, id);
-            }
+            statement.setInt(1, id);
             try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
-                    Student student = new Student();
                     student.setId(rs.getInt(1));
                     student.setFullName(rs.getString(2));
                     student.setGroupId(rs.getInt(3));
-                    student.setYear(4);
-                    students.add(student);
+                    student.setYear(rs.getInt(4));
                 }
             }
         } catch (SQLException ex) {
-            throw new DataSourceException("Couldn't get students by ids", ex);
+            throw new DataSourceException("Couldn't get student by id", ex);
         }
-        return students;
+        return student;
     }
-
-
 }
+

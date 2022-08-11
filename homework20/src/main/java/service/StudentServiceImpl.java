@@ -4,6 +4,7 @@ import bean.Student;
 import db.DBService;
 import db.DataSourceException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentServiceImpl implements StudentService {
@@ -32,11 +33,11 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> getByIds(List<Integer> ids) throws DataSourceException {
-        if (ids.size() < 3 || ids.size() > 3) {
-            System.out.println("List must contain 3 values!");
-            return null;
+        List<Student> students = new ArrayList<>();
+        for (Integer id: ids) {
+            students.add(dbService.getById(id));
         }
-        return dbService.getByIds(ids);
+        return students;
     }
 
 }
