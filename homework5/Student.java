@@ -108,7 +108,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "model.Student{" +
                 "id=" + id +
                 ", surname='" + surname + '\'' +
                 ", firstName='" + firstName + '\'' +

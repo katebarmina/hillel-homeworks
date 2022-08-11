@@ -63,14 +63,14 @@ public class University {
     }
 
     private static void printStudentsBornAfterThatYear(int year, Student[] students) {
-        System.out.println("Student born after " + year);
+        System.out.println("model.Student born after " + year);
         for (Student student : students) {
             if (student.getYearOfBirth() > year) System.out.println(student);
         }
     }
 
     private static void printGroup(Group group) {
-        System.out.println("Student of the " + group.getName() + " group");
+        System.out.println("model.Student of the " + group.getName() + " group");
         System.out.println(group);
     }
 }
