@@ -1,6 +1,5 @@
 package homework17;
 
-import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.google.gson.Gson;
@@ -109,7 +108,7 @@ public class FileConverter {
     }
   }
 
-  private void convertYamlToJson(List<String> files) throws DatabindException {
+  private void convertYamlToJson(List<String> files){
     try {
       long start = System.currentTimeMillis();
       long end = 0;

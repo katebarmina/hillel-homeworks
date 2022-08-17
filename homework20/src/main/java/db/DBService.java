@@ -1,6 +1,6 @@
 package db;
 
-import bean.Student;
+import bean.Student1;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class DBService {
     private final String SELECT_BY_ID_SQL = "SELECT * FROM students WHERE student_id = ?";
 
 
-    public void insert(Student student) throws DataSourceException {
+    public void insert(Student1 student) throws DataSourceException {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hillel", "root", "12345");
              PreparedStatement statement = connection.prepareStatement(INSERT_SQL)) {
             statement.setString(1, student.getFullName());
@@ -39,13 +39,13 @@ public class DBService {
         }
     }
 
-    public List<Student> getAll() throws DataSourceException {
-        List<Student> students = new ArrayList<>();
+    public List<Student1> getAll() throws DataSourceException {
+        List<Student1> students = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hillel", "root", "12345");
              PreparedStatement statement = connection.prepareStatement(SELECT_SQL)) {
             try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
-                    Student student = new Student();
+                    Student1 student = new Student1();
                     student.setId(rs.getInt(1));
                     student.setFullName(rs.getString(2));
                     student.setGroupId(rs.getInt(3));
@@ -59,14 +59,14 @@ public class DBService {
         return students;
     }
 
-    public List<Student> getByName(String name) throws DataSourceException {
-        List<Student> students = new ArrayList<>();
+    public List<Student1> getByName(String name) throws DataSourceException {
+        List<Student1> students = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hillel", "root", "12345");
              PreparedStatement statement = connection.prepareStatement(SELECT_BY_NAME_SQL)) {
             statement.setString(1, name);
             try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
-                    Student student = new Student();
+                    Student1 student = new Student1();
                     student.setId(rs.getInt(1));
                     student.setFullName(rs.getString(2));
                     student.setGroupId(rs.getInt(3));
@@ -80,8 +80,8 @@ public class DBService {
         return students;
     }
 
-    public Student getById(Integer id) throws DataSourceException {
-        Student student = new Student();
+    public Student1 getById(Integer id) throws DataSourceException {
+        Student1 student = new Student1();
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hillel", "root", "12345");
              PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID_SQL)) {
             statement.setInt(1, id);

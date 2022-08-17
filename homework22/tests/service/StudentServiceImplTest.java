@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-
 class StudentServiceImplTest {
 
     private final StudentService studentService = new StudentServiceImpl();
@@ -44,7 +43,7 @@ class StudentServiceImplTest {
 
     @Test
     void getByIds() {
-        List<Student> students = studentService.getByIds(Arrays.asList(2, 5, 7));
-        Assertions.assertEquals(3, students.size());
+        List<Student> students = studentService.getByIds(Arrays.asList(2, 5, 7, 1));
+        Assertions.assertEquals(4, students.size());
     }
 }

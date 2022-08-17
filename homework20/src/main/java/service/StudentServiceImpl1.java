@@ -1,18 +1,18 @@
 package service;
 
-import bean.Student;
+import bean.Student1;
 import db.DBService;
 import db.DataSourceException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentServiceImpl implements StudentService {
+public class StudentServiceImpl1 implements StudentService1 {
 
     private final DBService dbService = new DBService();
 
     @Override
-    public void add(Student student) throws DataSourceException {
+    public void add(Student1 student) throws DataSourceException {
         dbService.insert(student);
     }
 
@@ -22,18 +22,18 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getAll() throws DataSourceException {
+    public List<Student1> getAll() throws DataSourceException {
         return dbService.getAll();
     }
 
     @Override
-    public List<Student> getByName(String name) throws DataSourceException {
+    public List<Student1> getByName(String name) throws DataSourceException {
         return dbService.getByName(name);
     }
 
     @Override
-    public List<Student> getByIds(List<Integer> ids) throws DataSourceException {
-        List<Student> students = new ArrayList<>();
+    public List<Student1> getByIds(List<Integer> ids) throws DataSourceException {
+        List<Student1> students = new ArrayList<>();
         for (Integer id: ids) {
             students.add(dbService.getById(id));
         }

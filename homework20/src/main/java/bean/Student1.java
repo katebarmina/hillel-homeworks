@@ -2,17 +2,17 @@ package bean;
 
 import java.util.Objects;
 
-public class Student {
+public class Student1 {
     private Integer id;
     private String fullName;
     private Integer groupId;
     private Integer year;
 
-    public Student() {
+    public Student1() {
     }
 
 
-    public Student(String fullName, Integer groupId, Integer year) {
+    public Student1(String fullName, Integer groupId, Integer year) {
         this.fullName = fullName;
         this.groupId = groupId;
         this.year = year;
@@ -69,7 +69,7 @@ public class Student {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
+        Student1 student = (Student1) o;
         return Objects.equals(id, student.id) && Objects.equals(fullName, student.fullName) && Objects.equals(groupId, student.groupId) && Objects.equals(year, student.year);
     }
 }
