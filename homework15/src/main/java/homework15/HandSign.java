@@ -7,11 +7,11 @@ public enum HandSign {
 
     private final int value;
 
-    public int getValue() {
-        return value;
-    }
-
     HandSign(int value) {
         this.value = value;
+    }
+
+    public int getValue() {
+        return value;
     }
 }

@@ -1,41 +1,44 @@
 package homework15;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.*;
 
 public class GameService {
 
-    private final List<String> courseOfTheGame = new ArrayList<>();
+    private static final Logger loggerDebug = LoggerFactory.getLogger("logger.debug");
+    private static final Logger loggerResult = LoggerFactory.getLogger("logger.result");
 
-    public void pickSign(Player player) throws IOException {
+    public void pickSign(Player player){
         System.out.println("Pick one of the hand signs:\n-Paper\n-Rock\n-Scissors");
         System.out.println("Write the first letter of the picked hand sign.");
         System.out.println("To quit write X.");
         Scanner scanner = new Scanner(System.in);
         String letter = scanner.nextLine();
         switch (letter.toUpperCase(Locale.ROOT)) {
-            case "P":
+            case "P" -> {
                 player.setHandSign(HandSign.PAPER);
-                courseOfTheGame.add("Player :" + HandSign.PAPER);
-                break;
-            case "R":
+                loggerDebug.debug("The player chose paper");
+            }
+            case "R" -> {
                 player.setHandSign(HandSign.ROCK);
-                courseOfTheGame.add("Player :" + HandSign.ROCK);
-                break;
-            case "S":
+                loggerDebug.debug("The player chose rock");
+            }
+            case "S" -> {
                 player.setHandSign(HandSign.SCISSORS);
-                courseOfTheGame.add("Player :" + HandSign.SCISSORS);
-                break;
-            case "X":
+                loggerDebug.debug("The player chose scissors");
+            }
+            case "X" -> {
                 System.out.println(printResults(player));
-                saveGame(player);
+                loggerDebug.debug("The player quited the game.");
                 System.exit(1);
-            default:
+            }
+            default -> {
                 System.out.println("There isn't such hand sign.");
+                loggerDebug.debug("The player has entered incorrect value");
                 pickSign(player);
+            }
         }
 
     }
@@ -43,7 +46,7 @@ public class GameService {
     public HandSign computersTurn() {
         int randomSign = new Random().nextInt(HandSign.values().length);
         System.out.println("Computer's turn:" + HandSign.values()[randomSign]);
-        courseOfTheGame.add("Computer: " + HandSign.values()[randomSign]);
+        loggerDebug.debug("Computer chose " + HandSign.values()[randomSign]);
         return HandSign.values()[randomSign];
     }
 
@@ -54,56 +57,35 @@ public class GameService {
                 {'C', 'P', 'D'}};
         char winner = defineWinner[playersSign.getValue()][computerSign.getValue()];
         switch (winner) {
-            case 'D':
+            case 'D' -> {
                 System.out.println("Draw");
-                courseOfTheGame.add("Result: Draw");
-                break;
-            case 'C':
+                loggerDebug.debug("Result of the game: draw");
+            }
+            case 'C' -> {
                 System.out.println("Computer won.");
-                courseOfTheGame.add("Result: Computer won");
+                loggerDebug.debug("Result of the game: computer won");
                 player.setLostGames(player.getLostGames() + 1);
-                break;
-            case 'P':
+            }
+            case 'P' -> {
                 System.out.println("Congratulations,you won!");
-                courseOfTheGame.add("Result: Player won");
+                loggerDebug.debug("Result of the game: the player won");
                 player.setWonGames(player.getWonGames() + 1);
-                break;
+            }
         }
     }
 
     String printResults(Player player) {
         int numOfDraws = player.getPlayedGames() - (player.getWonGames() + player.getLostGames());
+        loggerResult.debug("===============================================");
+        loggerResult.debug("Game statistic for the player: " + player.getName());
+        loggerResult.debug("Total games played :" + player.getPlayedGames());
+        loggerResult.debug("Lost games: " + player.getLostGames());
+        loggerResult.debug("Draw :" + numOfDraws);
+        loggerResult.debug("Won games: " + player.getWonGames());
+        loggerResult.debug("===============================================");
         return "\nTotal games played :" + player.getPlayedGames() +
                 "\nLost games: " + player.getLostGames() +
                 "\nWon games: " + player.getWonGames() + "\nDraw :" + numOfDraws + "\n";
-    }
-
-    void saveGame(Player player) throws IOException {
-        Path path = Paths.get("RunGame.java").toAbsolutePath().getParent();
-        String fileName = "gameInfo.log";
-        File file = new File(path.toString(),fileName);
-        FileOutputStream fileOutputStream;
-        StringBuilder res = new StringBuilder();
-        if (file.exists()) {
-            fileOutputStream = new FileOutputStream(file, true);
-            for (String str : courseOfTheGame) {
-                res.append(str).append("\n");
-            }
-            res.append(printResults(player));
-            byte[] results = res.toString().getBytes(StandardCharsets.UTF_8);
-            fileOutputStream.write(results);
-        } else {
-            file.createNewFile();
-            fileOutputStream = new FileOutputStream(file);
-
-            for (String str : courseOfTheGame) {
-                res.append(str).append("\n");
-            }
-            res.append(printResults(player));
-            byte[] results = res.toString().getBytes(StandardCharsets.UTF_8);
-            fileOutputStream.write(results);
-        }
-        fileOutputStream.close();
     }
 }
 
